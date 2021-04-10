@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'; //backend isteginde bulunma
 import { Observable } from 'rxjs';
 import { Product } from '../models/product';
 import { ListResponseModel } from '../models/listResponseModel';
+import { ResponseModel } from '../models/responseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class ProductService {
   getProductsByCategory(categoryId:number) : Observable<ListResponseModel<Product>> { //sucsribe olunabilir model
     let newPath=this.apiUrl+"products/getbycategory?categoryId="+categoryId;
     return this.httpClient.get<ListResponseModel<Product>>(newPath);
+  }
+  
+  add(product:Product): Observable<ResponseModel> {
+    return this.httpClient.post<ResponseModel>(this.apiUrl+"products/add",product);
   }
 }
